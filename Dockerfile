@@ -13,7 +13,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+RUN sed -i 's|// output: "standalone"|output: "standalone"|' next.config.ts && npm run build
 
 # ─── Fáze 3: Produkční image ──────────────────────────────────────────────────
 FROM node:22-alpine AS runner
